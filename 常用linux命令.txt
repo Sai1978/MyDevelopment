@@ -1,0 +1,79 @@
+
+
+apt-get update
+
+systemctl status mysql.service
+systemctl status vsftpd.service
+service mysql restart
+
+sudo mysql -uroot -p
+mysql root 
+ps: 189888
+
+show databases;
+show tables;
+use stock01;
+
+?行外部SQL
+source /home/cailijun/create_t_stock_04.sql;
+source /home/cailijun/create_w_stock_01.sql;
+update user set host = '%' where user='root';
+
+mysql> load data infile '/var/lib/mysql-files/test01.csv'
+    -> into table T_STOCK_01
+    -> fields terminated by ',' optionally enclosed by '"' escaped by '"'
+    -> lines terminated by '\r\n';
+    
+ 
+?找MySql里的全局?量
+show variables like '%secure%';
+
+SET GLOBAL secure_file_priv='';
+
+■FireWallをクローズ
+sudo ufw disable
+
+■花生
+28l01n7937.qicp.vip:30772
+
+花生命令
+phddns
+
+create user 'cailijun'@'localhost' identified by 'A#19888ls';
+
+update db set host = '%' where user = 'cailijun'; 
+
+■DBに既存のユーザーを表示する
+select host,user,authentication_string from mysql.user;
+
+set password for cailijun=PASSWORD('A#189888ls');
+
+
+如果?想允?用?myuser从ip?192.168.1.6的主机?接到mysql服?器，并使用mypassword作?密?
+GRANT ALL PRIVILEGES ON *.* TO 'cailijun'@'%'IDENTIFIED BY 'Jan#963717' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+■データインポート 
+load data infile '/home/cailijun/test04.csv'into table T_STOCK_04 fields terminated by ',' optionally enclosed by '"' escaped by '"' lines terminated by '\n';
+
+load data infile '/home/cailijun/test01.csv'into table T_STOCK_01 fields terminated by ',' optionally enclosed by '"' escaped by '"' lines terminated by '\n';
+
+■Mysqlの設定ファイル
+/etc/mysql/my.cnf
+!includedir /etc/mysql/conf.d/
+!includedir /etc/mysql/mysql.conf.d/
+sudo vi mysqld.cnf
+
+
+alter database stock01  character set utf8;!
+
+show variables like 'character%';
+show full columns from T_STOCK_01;
+
+■汉字乱码的问题是，在数据库和表的定义时一定要时候UTF-8
+
+apache服务器的配置文件
+#vi /etc/apache2/sites-available/000-default.conf
+
+
+python manage.py runserver 0.0.0.0:8000
