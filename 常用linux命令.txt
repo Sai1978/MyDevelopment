@@ -1,6 +1,7 @@
+Task: Restart Apache 2 Server /重启apache服务
+sudo /etc/init.d/apache2 restart
 
-
-apt-get update
+sudo apt-get update
 
 systemctl status mysql.service
 systemctl status vsftpd.service
@@ -40,8 +41,14 @@ sudo ufw disable
 phddns
 
 create user 'cailijun'@'localhost' identified by 'A#19888ls';
+create user 'cms'@'localhost' identified by 'A#19888ls';
+
+GRANT ALL PRIVILEGES ON *.* TO 'cailijun'@'%' WITH GRANT OPTION;
 
 update db set host = '%' where user = 'cailijun'; 
+update user set host = '%' where user ='cms';
+第二步, 刷新使配置生效, 执行flush privileges;
+
 
 ■DBに既存のユーザーを表示する
 select host,user,authentication_string from mysql.user;
@@ -57,6 +64,8 @@ FLUSH PRIVILEGES;
 load data infile '/home/cailijun/test04.csv'into table T_STOCK_04 fields terminated by ',' optionally enclosed by '"' escaped by '"' lines terminated by '\n';
 
 load data infile '/home/cailijun/test01.csv'into table T_STOCK_01 fields terminated by ',' optionally enclosed by '"' escaped by '"' lines terminated by '\n';
+
+注意：再sakura里Save as时不要用BOM
 
 ■Mysqlの設定ファイル
 /etc/mysql/my.cnf
@@ -77,3 +86,19 @@ apache服务器的配置文件
 
 
 python manage.py runserver 0.0.0.0:8000
+
+cp -r /home/cailijun/maccms10/* /var/www/html
+
+rm -rf /var/www/html/* 
+rm -rf /home/cailijun/maccms10/* 
+
+service php-fpm restart
+cp  /home/cailijun/STP6510.mp4 /var/www/html/movie/
+
+
+■PHP 配置文件
+
+
+
+■Apache　WebSite
+/var/www/html/
